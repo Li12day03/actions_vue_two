@@ -11,7 +11,7 @@ export default defineConfig({
     },
   },
 
-  // ✅ 部署到 GitHub Pages 的正确写法
+  // ✅ 部署到 GitHub Pages 正确写法
   base:
     process.env.NODE_ENV === "production"
       ? "/actions_vue_two/" // 仓库名
