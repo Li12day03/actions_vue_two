@@ -11,7 +11,7 @@ export default defineConfig({
     },
   },
 
-  // ✅ 部署到 GitHub Pages 的正确写法
+  // ✅ 部署到 GitHub Pages 正确写法
   base: "/action_vue_two/",
 
   // ✅ 打包输出目录（vite 默认就是 dist，可省）
