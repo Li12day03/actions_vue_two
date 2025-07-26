@@ -1,0 +1,35 @@
+name: Deploy Vue CLI to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. 拉代码
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. 装 Node
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      # 3. 装依赖 & 构建
+      - name: Install deps
+        run: npm ci # 比 npm install 更快
+
+      - name: Build
+        run: npm run build
+
+      # 4. 部署到 GitHub Pages
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
