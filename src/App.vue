@@ -8,7 +8,7 @@ import TheWelcome from './components/TheWelcome.vue'
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
     <div>测试docker自动部署！～</div>
-    1
+    11
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
     </div>
