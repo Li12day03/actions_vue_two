@@ -1,44 +1,49 @@
-name: Build and Push Docker Image to GHCR
+name: Build and Push Docker Image to GHCR # 工作流名称
 
 on:
   push:
     branches:
-      - main # 监听 main 分支推送事件
+      - main # 监听 main 分支的推送事件，触发工作流
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # 在最新的 Ubuntu 虚拟机上运行
 
     steps:
-      # 1. 检出代码
+      # 第一步：检出代码（把仓库代码下载到 runner）
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. 设置 Node.js 环境（用来构建前端项目）
+      # 第二步：设置 Node.js 环境，指定版本为 18
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      # 3. 安装依赖
+      # 第三步：安装项目依赖
       - name: Install dependencies
         run: npm install
 
-      # 4. 构建项目，生成 dist 目录
+      # 第四步：执行项目构建，生成 dist 文件夹（静态资源）
       - name: Build project
         run: npm run build
 
-      # 5. 登录 GHCR
+      # 第五步：列出 dist 目录内容，用于调试确认构建是否成功
+      - name: Check dist folder
+        run: ls -l dist
+
+      # 第六步：登录 GitHub Container Registry (GHCR)，用于推送镜像
       - name: Log in to GHCR
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: ${{ secrets.GHCR_USERNAME }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          username: ${{ secrets.GHCR_USERNAME }} # 从仓库 Secrets 读取用户名
+          password: ${{ secrets.GHCR_TOKEN }} # 从仓库 Secrets 读取 PAT token
 
-      # 6. 构建并推送 Docker 镜像
+      # 第七步：构建 Docker 镜像并推送到 GHCR
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          push: true
-          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/actions_vue_two:latest
+          context: . # 构建上下文为项目根目录
+          push: true # 构建完成后自动推送镜像
+          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/actions_vue_two:latest # 镜像标签
