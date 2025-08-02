@@ -27,4 +27,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/myapp:latest
+          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/actions_vue_two:latest

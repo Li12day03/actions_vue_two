@@ -7,7 +7,7 @@ import TheWelcome from './components/TheWelcome.vue'
   <header>
     <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
-    <div>部署</div>
+    <div>测试docker自动部署</div>
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
